@@ -10,21 +10,20 @@ class Livre
     public float $cout;
     public float $marge;
 
-    public function __construct($isbn,$titre,$datePublication,$genre, $prix, $description, $cout){
+    public function __construct($isbn, $titre, $datePublication, $genre, $prix, $description, $cout)
+    {
         $this->isbn = $isbn;
         $this->titre = $titre;
         $this->datePublication = $datePublication;
         $this->genre = $genre;
         $this->prix = $prix;
         $this->description = $description;
-        $this->cout = $cout; 
+        $this->cout = $cout;
         $this->calculMarge();
     }
 
-    public function calculMarge():void{
+    public function calculMarge(): void
+    {
         $this->marge = $this->prix - $this->cout;
     }
-
 }
-
-?>
