@@ -16,11 +16,13 @@ $peter  = new Person('peterClass');
 
 $peter->setProps('Peter', 'Pie IX', '555-4444444');
 
+echo '<br>test<br>';
 echo $peter->getMessage();
 echo "<br><br>";
 
 $lisa = new Person('LisaClass');
 $lisa->setProps('Lisa', 'Sherbrooke', '555-7777777');
+echo '<br>test Lisa getMessage<br>';
 echo $lisa->getMessage();
 
 echo "<br><br>";
@@ -28,3 +30,4 @@ var_dump($peter);
 echo "<br><br>";
 print_r($peter);
 echo "<br><br>";
+echo 'fin de la page';

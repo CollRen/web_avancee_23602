@@ -1,6 +1,7 @@
 <?php
 
-class Person {
+class Person
+{
     public int $id;
     public string $name = 'Paul';
     public string $address;
@@ -15,4 +16,3 @@ $obj->address = "Pie Ix";
 //var_dump($obj);
 
 echo $obj->name;
-?>

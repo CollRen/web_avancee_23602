@@ -15,7 +15,7 @@ class Person
 
     public function __destruct()
     {
-        echo "Hello $this->name: Address: ";
+        echo "La function __destruct s'affiche en toute fin de page: <br>Hello $this->name: Address: $this->address";
     }
 
 
