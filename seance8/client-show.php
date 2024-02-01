@@ -1,14 +1,28 @@
 <?php
 if(isset($_GET['id']) && $_GET['id']!=null){
-    require_once('classes/CRUD.php');
-    $crud = new CRUD;
-    $selectId = $crud->selectId('client', $_GET['id'], 'client-index');
-    extract($selectId);
+    $id = $_GET['id'];
+
+    require_once('db/connex.php');
+    
+    $sql = "SELECT * FROM client WHERE id = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(array($id));
+    
+    $count = $stmt->rowCount();
+    if($count == 1){
+        $client = $stmt->fetch();
+        //print_r($client);
+        //echo $client['name'];
+        extract($client);
+    }else{
+        header('location:client-index.php');
+    }
+
 }else{
     header('location:client-index.php');
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

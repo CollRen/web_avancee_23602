@@ -1,7 +1,7 @@
 <?php
-require_once('classes/CRUD.php');
-$crud = new CRUD;
-$select = $crud->select('client', 'name', 'desc');
+require_once('db/connex.php');
+$sql="SELECT * FROM client ORDER BY name";
+$stmt = $pdo->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,7 @@ $select = $crud->select('client', 'name', 'desc');
         </thead>
         <tbody>
             <?php
-            foreach($select as $row){
+            foreach($stmt as $row){
             ?>
             <tr>
                 <td><a href="client-show.php?id=<?= $row['id'];?>"><?= $row['name']?></a></td>
