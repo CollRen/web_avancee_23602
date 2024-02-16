@@ -65,31 +65,38 @@ abstract class CRUD extends \PDO {
     }
 
     public function update($data, $id){
+        if($this->selectId($id)) {
         $data_keys = array_fill_keys($this->fillable, '');
-        $data = array_intersect_key($data, $data_keys);
+                $data = array_intersect_key($data, $data_keys);
 
-        $fieldName = null;
-        foreach($data as $key=>$value){
-            $fieldName .= "$key = :$key, ";
+                $fieldName = null;
+                foreach($data as $key=>$value){
+                    $fieldName .= "$key = :$key, ";
+                }
+                $fieldName = rtrim($fieldName, ', ');
+
+                $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey;";
+
+                $stmt = $this->prepare($sql);
+                //$stmt->bindValue(":$this->primaryKey", $id);
+                $data[$this->primaryKey] = $id;
+                foreach($data as $key=>$value){
+                    $stmt->bindValue(":$key", $value);
+                }
+                $stmt->execute();
+
+                $count = $stmt->rowCount();
+                if($count == 1){
+                    return true;
+                }else{
+                    return false;
+                }
+        
+            } else {
+                return false;
+            }
+
         }
-        $fieldName = rtrim($fieldName, ', ');
 
-        $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey;";
-
-        $stmt = $this->prepare($sql);
-        //$stmt->bindValue(":$this->primaryKey", $id);
-        $data[$this->primaryKey] = $id;
-        foreach($data as $key=>$value){
-            $stmt->bindValue(":$key", $value);
-        }
-        $stmt->execute();
-
-        $count = $stmt->rowCount();
-        if($count == 1){
-            return true;
-        }else{
-            return false;
-        }
- 
-    }
+        
 }
