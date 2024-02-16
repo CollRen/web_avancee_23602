@@ -75,7 +75,8 @@ class ClientController {
             return View::render('error', ['message'=>'Could not find this data']);
         }
     }
-    public function update($data){
+    public function update($data, $get){
+        // $get['id'];
         $validator = new Validator;
         $validator->field('name', $data['name'], 'Le nom')->min(2)->max(25);
         $validator->field('address', $data['address'])->max(45);
@@ -84,7 +85,14 @@ class ClientController {
         $validator->field('email', $data['email'])->required()->email()->max(45);
 
         if($validator->isSuccess()){
-                echo "update...";
+                $client = new Client;
+                $update = $client->update($data, $get['id']);
+
+                if($update){
+                    return View::redirect('client/show?id='.$get['id']);
+                }else{
+                    return View::render('error');
+                } 
         }else{
             $errors = $validator->getErrors();
             //print_r($errors);
