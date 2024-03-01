@@ -21,7 +21,7 @@ class UserController{
         $validator->field('username', $data['username'])->min(2)->max(50)->email()->unique('User');
         $validator->field('password', $data['password'])->min(6)->max(20);
         $validator->field('email', $data['email'])->required()->max(100)->email()->unique('User');
-        $validator->field('privilge_id', $data['privilege_id'], 'Privilege')->required();
+        $validator->field('privilege_id', $data['privilege_id'], 'Privilege')->required();
 
         
         if($validator->isSuccess()){
